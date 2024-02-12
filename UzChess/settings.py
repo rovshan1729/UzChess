@@ -40,10 +40,9 @@ INSTALLED_APPS = [
     #
     "rest_framework",
     "ckeditor",
-    "drf_yasg"
+    "drf_yasg",
     #
-    "cart",
-    "otherpages",
+    "course",
 ]
 
 MIDDLEWARE = [
