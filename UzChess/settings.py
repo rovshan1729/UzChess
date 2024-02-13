@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     'cart',
     'library',
-    'other',
+    'otherpages',
     'rest_framework',
     'django_filters',
     ]
