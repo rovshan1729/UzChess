@@ -18,25 +18,37 @@ from course.models import (
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ("title",)
+        fields = (
+            "id",
+            "title",
+        )
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ("title",)
+        fields = (
+            "id",
+            "title",
+        )
 
 
 class LevelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Level
-        fields = ("title",)
+        fields = (
+            "id",
+            "title",
+        )
 
 
 class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
-        fields = ("title",)
+        fields = (
+            "id",
+            "title",
+        )
 
 
 class LessonUserSerializer(serializers.ModelSerializer):
@@ -44,7 +56,7 @@ class LessonUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LessonUser
-        fields = ("lesson", "user", "watching_at", "is_complete")
+        fields = ("id", "lesson", "user", "watching_at", "is_complete")
 
 
 class LessonSerializer(serializers.ModelSerializer):
@@ -53,6 +65,7 @@ class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
         fields = (
+            "id",
             "title",
             "content",
             "banner",
@@ -65,12 +78,55 @@ class LessonSerializer(serializers.ModelSerializer):
         )
 
 
+class LessonRetriveSerializer(serializers.ModelSerializer):
+    lesson_users = LessonUserSerializer(many=True)
+    # prev = LessonSerializer()
+    # next = LessonSerializer()
+
+    class Meta:
+        model = Lesson
+        fields = (
+            "id",
+            "title",
+            "content",
+            "banner",
+            "video",
+            "video_duration",
+            "unit",
+            # "prev",
+            # "next",
+            "lesson_users",
+            "created_at",
+            "updated_at",
+        )
+
+    # def to_representation(self, instance):
+    #     lessons = list(
+    #         Lesson.objects.all().filter(unit=instance.unit).order_by("-created_at")
+    #     )
+
+    #     json = super().to_representation(instance)
+    #     prev = ""
+    #     next = ""
+
+    #     if lessons.index(instance) != 0:
+    #         prev = lessons[lessons.index(instance) - 1]
+
+    #     if lessons.index(instance) != len(lessons) - 1:
+    #         next = lessons[lessons.index(instance) + 1]
+
+    #     json.prev = prev
+    #     json.next = next
+
+    #     return json
+
+
 class UnitSerializer(serializers.ModelSerializer):
     lessons = LessonSerializer(many=True)
 
     class Meta:
         model = Unit
-        fields = ("title", "course", "lessons")
+        fields = ("id", "title", "course", "lessons")
 
 
 class FeedBackSerializer(serializers.ModelSerializer):
@@ -78,7 +134,15 @@ class FeedBackSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FeedBack
-        fields = ("user", "course", "stars", "content", "created_at", "updated_at")
+        fields = (
+            "id",
+            "user",
+            "course",
+            "stars",
+            "content",
+            "created_at",
+            "updated_at",
+        )
 
 
 class CourseUserSerializer(serializers.ModelSerializer):
@@ -87,6 +151,7 @@ class CourseUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseUser
         fields = (
+            "id",
             "course",
             "user",
             "is_complete",
@@ -106,6 +171,7 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = (
+            "id",
             "title",
             "price",
             "author",
@@ -131,6 +197,7 @@ class CourseSingleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = (
+            "id",
             "title",
             "price",
             "author",
@@ -152,4 +219,4 @@ class ReportSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Report
-        fields = ("subject", "content", "user", "feedback")
+        fields = ("id", "subject", "content", "user", "feedback")
